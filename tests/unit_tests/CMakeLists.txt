@@ -47,6 +47,8 @@ set(unit_tests_sources
   get_xtype_from_string.cpp
   http.cpp
   main.cpp
+  memwipe.cpp
+  mlocker.cpp
   mnemonics.cpp
   mul_div.cpp
   parse_amount.cpp
