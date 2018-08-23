@@ -16,6 +16,7 @@ cp intense-blockchain-export.exe $RELEASE_NAME/
 cp intense-blockchain-import.exe $RELEASE_NAME/
 cp intense-wallet-cli.exe $RELEASE_NAME/
 cp intense-wallet-rpc.exe $RELEASE_NAME/
+cp intense-wallet-vpn-rpc.exe $RELEASE_NAME/
 cp intensecoind.exe $RELEASE_NAME/
 cp ../../../ci/package-artifacts/CHANGELOG.txt $RELEASE_NAME/
 cp ../../../ci/package-artifacts/README.txt $RELEASE_NAME/
