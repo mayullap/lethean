@@ -2025,7 +2025,7 @@ namespace
 	//----------------------------------------------------------------------------------------------------
 	//legacy wallet deserialization and decryption functions
 	//Following four functions Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers GNUGPL
-	//Modifications Copyright (c) 2018 Intense Coin developers
+	//Modifications Copyright (c) 2018 Lethean developers
 	std::string readCipher(Common::IInputStream& source, const size_t& sz, const std::string& name) {
 		//use a vector of dynamic size instead of std::string. using std::string reads the entire file
 		std::vector<char> cipher(sz);

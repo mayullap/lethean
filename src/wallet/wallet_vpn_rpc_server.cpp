@@ -57,7 +57,7 @@ namespace
   const command_line::arg_descriptor<std::string, true> arg_rpc_bind_port = {"vpn-rpc-bind-port", "Sets bind port for VPN RPC server"};
   const command_line::arg_descriptor<bool> arg_trusted_daemon = {"trusted-daemon", "Enable commands which rely on a trusted daemon", false};
 
-  constexpr const char default_rpc_username[] = "intensevpn";
+  constexpr const char default_rpc_username[] = "letheanvpn";
 }
 
 namespace tools
@@ -168,7 +168,7 @@ namespace tools
 		}
 		assert(bool(http_login));
 
-		std::string temp = "intense-wallet-vpn-rpc." + bind_port + ".login";
+		std::string temp = "lethean-wallet-vpn-rpc." + bind_port + ".login";
 		const auto cookie = tools::create_private_file(temp);
 		if (!cookie)
 		{
@@ -630,10 +630,10 @@ int main(int argc, char** argv) {
 
 	const auto vm = wallet_args::main(
 		argc, argv,
-		"intense-wallet-vpn-rpc [--wallet-file=<file>|--generate-from-json=<file>] [--vpn-rpc-bind-port=<port>]",
+		"lethean-wallet-vpn-rpc [--wallet-file=<file>|--generate-from-json=<file>] [--vpn-rpc-bind-port=<port>]",
 		desc_params,
 		po::positional_options_description(),
-		"intense-wallet-vpn-rpc.log",
+		"lethean-wallet-vpn-rpc.log",
 		true
 	);
 	if (!vm)
