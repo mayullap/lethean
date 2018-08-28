@@ -16,7 +16,7 @@ RUN set -x \
   && apt-get -qq update \
   && apt-get -qq --no-install-recommends install $buildDeps
 
-RUN git clone https://github.com/LetheanMovement/lethean.git $SRC_DIR
+RUN git clone https://github.com/LetheanMovement/intensecoin.git $SRC_DIR
 WORKDIR $SRC_DIR
 RUN git checkout xmr
 # checkout is temporary until master is also xmr source

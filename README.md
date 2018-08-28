@@ -9,7 +9,7 @@ Portions Copyright (c) 2012-2013, The Cryptonote developers
 ## Development Resources
 
 - Web: [lethean.io](https://lethean.io/)
-- GitHub: [https://github.com/LetheanMovement/lethean](https://github.com/LetheanMovement/lethean)
+- GitHub: [https://github.com/LetheanMovement/intensecoin](https://github.com/LetheanMovement/intensecoin)
 
 ## Introduction
 
