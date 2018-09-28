@@ -134,7 +134,7 @@ if (NOT BUILD_GUI_DEPS)
   add_dependencies(wallet_rpc_server version)
   set_property(TARGET wallet_rpc_server
     PROPERTY
-      OUTPUT_NAME "intense-wallet-rpc")
+      OUTPUT_NAME "lethean-wallet-rpc")
   install(TARGETS wallet_rpc_server DESTINATION bin)
 
   target_link_libraries(wallet_vpn_rpc_server
@@ -154,7 +154,7 @@ if (NOT BUILD_GUI_DEPS)
   add_dependencies(wallet_vpn_rpc_server version)
   set_property(TARGET wallet_vpn_rpc_server
     PROPERTY
-      OUTPUT_NAME "intense-wallet-vpn-rpc")
+      OUTPUT_NAME "lethean-wallet-vpn-rpc")
   install(TARGETS wallet_vpn_rpc_server DESTINATION bin)
 endif()
 
