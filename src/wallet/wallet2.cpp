@@ -888,7 +888,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
             + ", m_transfers.size() is " + boost::lexical_cast<std::string>(m_transfers.size()));
         if (kit == m_pub_keys.end())
         {
-					uint64_t amount = tx.vout[o].amount;
+					uint64_t amount_s = (tx.vout[o].amount ? tx.vout[o].amount : amount[o]);
           if (!pool)
           {
 	    m_transfers.push_back(boost::value_initialized<transfer_details>());
@@ -900,7 +900,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
 	    td.m_txid = txid;
             td.m_key_image = ki[o];
             td.m_key_image_known = !m_watch_only;
-            td.m_amount = amount;
+            td.m_amount = amount_s;
             td.m_pk_index = pk_index - 1;
             if (tx.vout[o].amount == 0)
             {
@@ -924,7 +924,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
 	    if (0 != m_callback)
 	      m_callback->on_money_received(height, txid, tx, td.m_amount);
           }
-					total_received_1 += amount;
+					total_received_1 += amount_s;
         }
 	else if (m_transfers[kit->second].m_spent || m_transfers[kit->second].amount() >= tx.vout[o].amount)
         {
@@ -945,10 +945,10 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
 		THROW_WALLET_EXCEPTION_IF(m_transfers[kit->second].amount() > tx.vout[o].amount,
 				error::wallet_internal_error, "Unexpected values of new and old outputs");
 		tx_money_got_in_outs -= m_transfers[kit->second].amount();
-
-		uint64_t amount = tx.vout[o].amount;
-		uint64_t extra_amount = amount - m_transfers[kit->second].amount();
 //          tx_money_got_in_outs -= tx.vout[o].amount;
+
+		uint64_t amount_s = (tx.vout[o].amount ? tx.vout[o].amount : amount[o]);
+		uint64_t extra_amount = amount_s - m_transfers[kit->second].amount();
 
           if (!pool)
           {
@@ -958,7 +958,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
 	    td.m_global_output_index = o_indices[o];
 	    td.m_tx = (const cryptonote::transaction_prefix&)tx;
 	    td.m_txid = txid;
-            td.m_amount = amount;
+            td.m_amount = amount_s;
             td.m_pk_index = pk_index - 1;
             if (tx.vout[o].amount == 0)
             {
