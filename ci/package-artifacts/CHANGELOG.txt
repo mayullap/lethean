@@ -1,3 +1,11 @@
+v3.0.0.b3 - 2018.10.23
+ - added support on testnet for the upcoming proof-of-work algorithm CNv2
+     https://github.com/LetheanMovement/lethean/pull/124
+ - fixed update timer doesn't prematurely warn about daemon being out of date
+     https://github.com/LetheanMovement/lethean/pull/127
+ - fixed an issue where the fork's difficulty block count exceeds the previous fork as part of a protocol change
+     https://github.com/monero-project/monero/pull/3732
+
 v3.0.0.b2 - 2018.09.28
  - added functionality for proxy service
  - rebranded to Lethean: https://github.com/LetheanMovement/lethean/pull/116
