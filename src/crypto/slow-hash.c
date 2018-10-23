@@ -298,6 +298,7 @@ extern int aesb_pseudo_round(const uint8_t *in, uint8_t *out, const uint8_t *exp
   b[0] = p[0]; b[1] = p[1]; \
   VARIANT2_INTEGER_MATH_SSE2(b, c); \
   __mul(); \
+  VARIANT2_2(); \
   VARIANT2_SHUFFLE_ADD_SSE2(hp_state, j); \
   a[0] += hi; a[1] += lo; \
   p = U64(&hp_state[j]); \
@@ -900,6 +901,7 @@ union cn_slow_hash_state
   b[0] = p[0]; b[1] = p[1]; \
   VARIANT2_PORTABLE_INTEGER_MATH(b, c); \
   __mul(); \
+  VARIANT2_2(); \
   VARIANT2_SHUFFLE_ADD_NEON(hp_state, j); \
   a[0] += hi; a[1] += lo; \
   p = U64(&hp_state[j]); \
@@ -1321,6 +1323,7 @@ void cn_slow_hash(const void *data, size_t length, char *hash, int variant, int 
 
       VARIANT2_PORTABLE_INTEGER_MATH(c, c1);
       mul(c1, c, d);
+      VARIANT2_2_PORTABLE();
       VARIANT2_PORTABLE_SHUFFLE_ADD(long_state, j);
       sum_half_blocks(a, d);
       swap_blocks(a, c);
@@ -1502,6 +1505,7 @@ void cn_slow_hash(const void *data, size_t length, char *hash, int variant, int 
     copy_block(c2, &long_state[j]);
     VARIANT2_PORTABLE_INTEGER_MATH(c2, c1);
     mul(c1, c2, d);
+    VARIANT2_2_PORTABLE();
     VARIANT2_PORTABLE_SHUFFLE_ADD(long_state, j);
     swap_blocks(a, c1);
     sum_half_blocks(c1, d);
