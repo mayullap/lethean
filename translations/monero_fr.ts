@@ -2475,8 +2475,8 @@ Sorties par * : </translation>
     </message>
     <message>
         <location filename="../src/common/dns_utils.cpp" line="439"/>
-        <source> Monero Address = </source>
-        <translation> Adresse Monero = </translation>
+        <source> Lethean Address = </source>
+        <translation> Adresse Lethean = </translation>
     </message>
     <message>
         <location filename="../src/common/dns_utils.cpp" line="441"/>
