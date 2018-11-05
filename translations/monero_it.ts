@@ -2433,8 +2433,8 @@ Outputs per *: </source>
     </message>
     <message>
         <location filename="../src/common/dns_utils.cpp" line="439"/>
-        <source> Monero Address = </source>
-        <translation>Indirizzo Monero = </translation>
+        <source> Lethean Address = </source>
+        <translation>Indirizzo Lethean = </translation>
     </message>
     <message>
         <location filename="../src/common/dns_utils.cpp" line="441"/>
