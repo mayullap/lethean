@@ -160,7 +160,7 @@ namespace cryptonote
       * @note see Blockchain::cleanup_handle_incoming_blocks
       */
      bool cleanup_handle_incoming_blocks(bool force_sync = false);
-     	     	
+
      /**
       * @brief check the size of a block against the current maximum
       *
@@ -426,14 +426,14 @@ namespace cryptonote
       * @note see tx_memory_pool::get_transactions
       */
      bool get_pool_transactions(std::list<transaction>& txs) const;
-     
+
      /**
       * @copydoc tx_memory_pool::get_txpool_backlog
       *
       * @note see tx_memory_pool::get_txpool_backlog
       */
      bool get_txpool_backlog(std::vector<tx_backlog_entry>& backlog) const;
-     
+
      /**
       * @copydoc tx_memory_pool::get_transactions
       *
@@ -720,12 +720,12 @@ namespace cryptonote
       * @return the number of blocks to sync in one go
       */
      std::pair<uint64_t, uint64_t> get_coinbase_tx_sum(const uint64_t start_offset, const size_t count);
-     
+
      /**
       * @brief get whether we're on testnet or not
       *
       * @return are we on testnet?
-      */     
+      */
      bool get_testnet() const { return m_testnet; };
 
      /**
@@ -734,6 +734,8 @@ namespace cryptonote
       * @return whether fluffy blocks are enabled
       */
      bool fluffy_blocks_enabled() const { return m_fluffy_blocks_enabled; }
+
+     bool standard_json_enabled() const { return m_standard_json_enabled; }
 
    private:
 
@@ -954,6 +956,7 @@ namespace cryptonote
      boost::mutex m_update_mutex;
 
      bool m_fluffy_blocks_enabled;
+     bool m_standard_json_enabled;
    };
 }
 
