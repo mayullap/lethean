@@ -1,3 +1,9 @@
+v3.1.0 - 2019.02.06
+ - added standard-json command line arg to standardize json output
+ 	https://github.com/LetheanMovement/lethean/pull/150
+ - fixed: boost 1.69 compile
+ 	https://github.com/LetheanMovement/lethean/pull/153
+
 v3.0.0 - 2018.11.07
  - fixed: OpenAlias strings now refer to Lethean
      https://github.com/LetheanMovement/lethean/pull/142
