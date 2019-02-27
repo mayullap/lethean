@@ -70,26 +70,15 @@ namespace crypto {
     chacha20(data, length, key.data(), reinterpret_cast<const uint8_t*>(&iv), cipher);
   }
 
-  inline void generate_chacha8_key(const void *data, size_t size, chacha8_key& key, uint64_t kdf_rounds) {
+  inline void generate_chacha8_key(const void *data, size_t size, chacha8_key& key, int cn_variant = 0, bool prehashed=false) {
     static_assert(sizeof(chacha8_key) <= sizeof(hash), "Size of hash must be at least that of chacha8_key");
     epee::mlocked<tools::scrubbed_arr<char, HASH_SIZE>> pwd_hash;
-    crypto::cn_slow_hash(data, size, pwd_hash.data(), 0/*variant*/, 0/*prehashed*/, 0/*height*/);
-    for (uint64_t n = 1; n < kdf_rounds; ++n)
-      crypto::cn_slow_hash(pwd_hash.data(), pwd_hash.size(), pwd_hash.data(), 0/*variant*/, 0/*prehashed*/, 0/*height*/);
+    crypto::cn_slow_hash(data, size, pwd_hash.data(), cn_variant, prehashed, 0/*height*/);
     memcpy(&unwrap(unwrap(key)), pwd_hash.data(), sizeof(key));
   }
 
-  inline void generate_chacha8_key_prehashed(const void *data, size_t size, chacha8_key& key, uint64_t kdf_rounds) {
-    static_assert(sizeof(chacha8_key) <= sizeof(hash), "Size of hash must be at least that of chacha8_key");
-    epee::mlocked<tools::scrubbed_arr<char, HASH_SIZE>> pwd_hash;
-    crypto::cn_slow_hash(data, size, pwd_hash.data(), 0/*variant*/, 1/*prehashed*/, 0/*height*/);
-    for (uint64_t n = 1; n < kdf_rounds; ++n)
-      crypto::cn_slow_hash(pwd_hash.data(), pwd_hash.size(), pwd_hash.data(), 0/*variant*/, 0/*prehashed*/, 0/*height*/);
-    memcpy(&unwrap(unwrap(key)), pwd_hash.data(), sizeof(key));
-  }
-
-  inline void generate_chacha8_key(std::string password, chacha8_key& key, uint64_t kdf_rounds) {
-    return generate_chacha8_key(password.data(), password.size(), key, kdf_rounds);
+  inline void generate_chacha8_key(std::string password, chacha8_key& key) {
+    return generate_chacha8_key(password.data(), password.size(), key);
   }
 }
 
