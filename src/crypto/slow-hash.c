@@ -40,6 +40,10 @@
 #include "oaes_lib.h"
 #include "variant2_int_sqrt.h"
 
+#ifndef uint64
+#define uint64 unsigned long long
+#endif
+
 #define MEMORY         (1 << 21) // 2MB scratchpad
 #define ITER           (1 << 20)
 #define AES_BLOCK_SIZE  16
