@@ -50,6 +50,7 @@
 #define BLOCK_MAJOR_VERSION_4                           4
 #define BLOCK_MAJOR_VERSION_5                           5
 #define BLOCK_MAJOR_VERSION_6                           6
+#define BLOCK_MAJOR_VERSION_7                           7
 #define CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT              500
 #define CRYPTONOTE_DEFAULT_TX_SPENDABLE_AGE             0
 
@@ -168,6 +169,7 @@ namespace config
   std::string const GENESIS_TX = "013c01ff0001af9ea896c605029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd0880712101e444827ebec7bfe1938c8505128cbcf59343e9651afb0893d3d664f560fd216f";
   uint32_t const GENESIS_NONCE = 70;
   uint32_t const GENESIS_TIMESTAMP = 1502835881;
+
 
   namespace testnet
   {

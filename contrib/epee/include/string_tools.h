@@ -44,6 +44,8 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string.hpp>
 #include "hex.h"
+#include "common/memwipe.h"
+#include "mlocker.h"
 #include "span.h"
 #include "warnings.h"
 
@@ -349,6 +351,20 @@ POP_WARNINGS
     s = *(t_pod_type*)bin_buff.data();
     return true;
   }
+  //----------------------------------------------------------------------------
+  template<class t_pod_type>
+  bool hex_to_pod(const std::string& hex_str, tools::scrubbed<t_pod_type>& s)
+  {
+    return hex_to_pod(hex_str, unwrap(s));
+  }
+  //----------------------------------------------------------------------------
+  template<class t_pod_type>
+  bool hex_to_pod(const std::string& hex_str, epee::mlocked<t_pod_type>& s)
+  {
+    return hex_to_pod(hex_str, unwrap(s));
+  }
+  //----------------------------------------------------------------------------
+  bool validate_hex(uint64_t length, const std::string& str);
   //----------------------------------------------------------------------------
 	inline std::string get_extension(const std::string& str)
 	{

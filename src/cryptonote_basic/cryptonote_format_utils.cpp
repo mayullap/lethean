@@ -828,8 +828,9 @@ namespace cryptonote
   {
     blobdata bd = get_block_hashing_blob(b);
     // PoW variant 1 appeared in block version 4, so our current PoW variant is calculated with "block version - 3"
-    const int cn_variant = b.major_version >= BLOCK_MAJOR_VERSION_4 ? b.major_version - 3 : 0;
-    crypto::cn_slow_hash(bd.data(), bd.size(), res, cn_variant);
+    // variant 3 was skipped due to Monero adopting bulletproof txs in that variant without POW changes
+    const int cn_variant = b.major_version >= BLOCK_MAJOR_VERSION_4 ? (b.major_version >= BLOCK_MAJOR_VERSION_6 ? b.major_version - 2 : b.major_version - 3 ) : 0;
+    crypto::cn_slow_hash(bd.data(), bd.size(), res, cn_variant, height);
     return true;
   }
   //---------------------------------------------------------------
@@ -842,12 +843,12 @@ namespace cryptonote
 	  return true;
   }
   //---------------------------------------------------------------
-  bool check_proof_of_work_v1(const block& bl, difficulty_type current_diffic, crypto::hash& proof_of_work)
+  bool check_proof_of_work_v1(const block& bl, difficulty_type current_diffic, crypto::hash& proof_of_work, uint64_t height)
   {
 	  if (bl.major_version == BLOCK_MAJOR_VERSION_2 || bl.major_version == BLOCK_MAJOR_VERSION_3)
 		  return false;
 
-	  proof_of_work = get_block_longhash(bl, 0);
+	  proof_of_work = get_block_longhash(bl, height);
 	  return check_hash(proof_of_work, current_diffic);
   }
   //---------------------------------------------------------------
@@ -898,17 +899,15 @@ namespace cryptonote
 	  return true;
   }
   //---------------------------------------------------------------
-  bool check_proof_of_work(const block& bl, difficulty_type current_diffic, crypto::hash& proof_of_work)
+  bool check_proof_of_work(const block& bl, difficulty_type current_diffic, crypto::hash& proof_of_work, uint64_t height)
   {
 	  switch (bl.major_version)
 	  {
-	  case BLOCK_MAJOR_VERSION_1:
-	  case BLOCK_MAJOR_VERSION_4:
-	  case BLOCK_MAJOR_VERSION_5:
-		  return check_proof_of_work_v1(bl, current_diffic, proof_of_work);
 	  case BLOCK_MAJOR_VERSION_2:
 	  case BLOCK_MAJOR_VERSION_3:
 		  return check_proof_of_work_v2(bl, current_diffic, proof_of_work);
+    default: //block major version 1 and 4+
+      return check_proof_of_work_v1(bl, current_diffic, proof_of_work, height);
 	  }
 
 	  CHECK_AND_ASSERT_MES(false, false, "unknown block major version: " << bl.major_version << "." << bl.minor_version);

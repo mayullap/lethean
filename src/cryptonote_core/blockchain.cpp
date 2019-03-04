@@ -100,6 +100,8 @@ static const struct {
   { 4, 166134, 0, 1523819830 },
   // version 5
   { 5, 296287, 0, 1540279084 },
+  // version 6
+  { 6, 391500, 0, 1552132800 }
 };
 static const uint64_t mainnet_hard_fork_version_1_till = 50000;
 
@@ -114,7 +116,8 @@ static const struct {
   { 2, 101, 0, 1518115575 },
   { 3, 201, 0, 1518117468 },
   { 4, 301, 0, 1518118888 },
-  { 5, 401, 0, 1539941268 },
+  { 5, 310, 0, 1539941268 },
+  { 6, 801, 0, 1551264860 }
 };
 static const uint64_t testnet_hard_fork_version_1_till = 100;
 
@@ -1414,7 +1417,7 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
     CHECK_AND_ASSERT_MES(current_diff, false, "!!!!!!! DIFFICULTY OVERHEAD !!!!!!!");
     crypto::hash proof_of_work = null_hash;
 
-	if (!check_proof_of_work(bei.bl, current_diff, proof_of_work))
+	if (!check_proof_of_work(bei.bl, current_diff, proof_of_work, bei.height))
 	{
 		MERROR_VER("Block with id: " << id << std::endl << " for alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << "unexpected difficulty: " << current_diff);
 		MDEBUG("Block info - ts " << bei.bl.timestamp << " nonce " << bei.bl.nonce);
@@ -3289,7 +3292,7 @@ leave:
     }
 	else
 	{
-		if (!check_proof_of_work(bl, current_diffic, proof_of_work))
+		if (!check_proof_of_work(bl, current_diffic, proof_of_work, m_db->height()))
 		{
 			MERROR_VER("Block with id: " << id << std::endl << "does not have enough proof of work: " << proof_of_work << std::endl << "unexpected difficulty: " << current_diffic);
 			MDEBUG("Block info - ts " << bl.timestamp << " nonce " << bl.nonce);
@@ -3538,7 +3541,8 @@ bool Blockchain::update_next_cumulative_size_limit()
 {
 	if (get_current_hard_fork_version() == BLOCK_MAJOR_VERSION_3 ||
 		get_current_hard_fork_version() == BLOCK_MAJOR_VERSION_4 ||
-		get_current_hard_fork_version() == BLOCK_MAJOR_VERSION_5)
+		get_current_hard_fork_version() == BLOCK_MAJOR_VERSION_5 ||
+    get_current_hard_fork_version() == BLOCK_MAJOR_VERSION_6)
 	{
 		//support LTHN max cumulative size limit change since 65k: large blocks every 5 blocks only
 		//transaction size is also checked here.
