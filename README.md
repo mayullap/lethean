@@ -1,19 +1,22 @@
-[![Build Status](https://travis-ci.org/LetheanMovement/lethean.svg?branch=master)](https://travis-ci.org/LetheanMovement/lethean)
-
 # Lethean
 
-Portions Copyright (c) 2018, The Lethean developers
-Copyright (c) 2014-2017, The Monero Project
+Portions Copyright (c) 2017-2019, The Lethean developers
+Copyright (c) 2014-2019, The Monero Project
 Portions Copyright (c) 2012-2013, The Cryptonote developers
 
 ## Development Resources
 
 - Web: [lethean.io](https://lethean.io/)
-- GitHub: [https://github.com/LetheanMovement/intensecoin](https://github.com/LetheanMovement/intensecoin)
+- GitHub: [https://github.com/LetheanMovement/lethean](https://github.com/LetheanMovement/lethean)
+- Social media: [Discord](https://discord.gg/6ARhyAc), [Twitter](https://t.me/letheanVPN), [Facebook](https://www.facebook.com/lethean.io/), [LinkedIn](https://www.linkedin.com/company/lethean/), [Reddit](https://www.reddit.com/r/Lethean), [Medium](https://medium.com/@letheanVPN), [YouTube](https://www.youtube.com/channel/UCKa_Nw7JysDxgcBJYnraUVA/featured?view_as=subscriber)
 
 ## Introduction
 
-Lethean is a private, secure, untraceable, decentralised digital currency. You are your bank, you control your funds, and nobody can trace your transfers unless you allow them to do so.
+Lethean is the latest in Blockchain and VPN technology, aimed at unlocking the internet for all to use freely. We offer a suite of privacy tools for users that are fast and easy to use; just download the wallet, obtain some coins, and click "connect" on the VPN node of your choice! Any user can also contribute to the decentralized VPN and earn passive income by becoming an exit node, providing one more choice in our unique open marketplace for users to choose between. 
+
+The Lethean software suite comprises many pieces but this repository is for the command-line daemon. Please see our other repositories for the [GUI wallet](https://github.com/LetheanMovement/lethean-gui) or [VPN exit node](https://github.com/LetheanMovement/lethean-vpn).
+
+Anonymous payments using the CryptoNote blockchain ensure that users remain anonymous in all senses of the word, both when surfing and when connecting, unlike more traditional VPN services.
 
 **Privacy:** Lethean uses a cryptographically sound system to allow you to send and receive funds without your transactions being easily revealed on the blockchain (the ledger of transactions that everyone has). This ensures that your purchases, receipts, and all transfers remain absolutely private by default.
 
@@ -45,7 +48,7 @@ See [Vulnerability Response Process](VULNERABILITY_RESPONSE_PROCESS.md).
 
 Lethean uses a fixed-schedule hard fork mechanism to implement new features. This means that users of Lethean (end users and service providers) need to run current versions and update their software on a regular schedule.
 
-**The last hard fork was on April 18, 2018. Version 2.0.0 (Belaya) or later of the software is required to be compliant with the latest hard fork!**
+**The last hard fork was on March 9, 2019. Version 3.1.0 (Congo) or later of the software is required to be compliant with the latest hard fork!**
 
 ## Compiling Lethean from Source
 

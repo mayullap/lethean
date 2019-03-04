@@ -1,3 +1,14 @@
+v3.1.0 - 2019.02.06
+ - Proof of Work (POW) change to CryptonightR (variant 4)
+ 	https://github.com/monero-project/monero/pull/5126
+ - added standard-json command line arg to standardize json output
+ 	https://github.com/LetheanMovement/lethean/pull/150
+ - fixed: boost 1.69 compile
+ 	https://github.com/LetheanMovement/lethean/pull/153
+ - fixed: ARM compile
+ 	https://github.com/LetheanMovement/lethean/pull/156
+ 	https://github.com/LetheanMovement/lethean/pull/130
+
 v3.0.0 - 2018.11.07
  - fixed: OpenAlias strings now refer to Lethean
      https://github.com/LetheanMovement/lethean/pull/142
