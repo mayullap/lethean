@@ -733,6 +733,7 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
           THROW_WALLET_EXCEPTION_IF(in_ephemeral[0].pub != boost::get<cryptonote::txout_to_key>(tx.vout[0].target).key,
               error::wallet_internal_error, "key_image generated ephemeral public key not matched with output_key");
 
+				  THROW_WALLET_EXCEPTION_IF(std::find(outs.begin(), outs.end(), 0) != outs.end(), error::wallet_internal_error, "Same output cannot be added twice");
           outs.push_back(0);
           if (money_transfered == 0)
           {
@@ -774,11 +775,13 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
               THROW_WALLET_EXCEPTION_IF(in_ephemeral[i].pub != boost::get<cryptonote::txout_to_key>(tx.vout[i].target).key,
                   error::wallet_internal_error, "key_image generated ephemeral public key not matched with output_key");
 
+							THROW_WALLET_EXCEPTION_IF(std::find(outs.begin(), outs.end(), i) != outs.end(), error::wallet_internal_error, "Same output cannot be added twice");
               outs.push_back(i);
               if (money_transfered[i] == 0)
               {
                 money_transfered[i] = tools::decodeRct(tx.rct_signatures, pub_key_field.pub_key, keys.m_view_secret_key, i, mask[i]);
               }
+              THROW_WALLET_EXCEPTION_IF(tx_money_got_in_outs >= std::numeric_limits<uint64_t>::max() - money_transfered[i], error::wallet_internal_error, "Overflow in received amounts");
               tx_money_got_in_outs += money_transfered[i];
               amount[i] = money_transfered[i];
               ++num_vouts_received;
@@ -820,11 +823,13 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
           THROW_WALLET_EXCEPTION_IF(in_ephemeral[i].pub != boost::get<cryptonote::txout_to_key>(tx.vout[i].target).key,
               error::wallet_internal_error, "key_image generated ephemeral public key not matched with output_key");
 
+					THROW_WALLET_EXCEPTION_IF(std::find(outs.begin(), outs.end(), i) != outs.end(), error::wallet_internal_error, "Same output cannot be added twice");
           outs.push_back(i);
-          if (money_transfered[i] == 0)
+          if (money_transfered[i] == 0 && !miner_tx)
           {
             money_transfered[i] = tools::decodeRct(tx.rct_signatures, pub_key_field.pub_key, keys.m_view_secret_key, i, mask[i]);
           }
+          THROW_WALLET_EXCEPTION_IF(tx_money_got_in_outs >= std::numeric_limits<uint64_t>::max() - money_transfered[i], error::wallet_internal_error, "Overflow in received amounts");
           tx_money_got_in_outs += money_transfered[i];
           amount[i] = money_transfered[i];
           ++num_vouts_received;
@@ -851,11 +856,13 @@ void wallet2::process_new_transaction(const crypto::hash &txid, const cryptonote
             THROW_WALLET_EXCEPTION_IF(in_ephemeral[i].pub != boost::get<cryptonote::txout_to_key>(tx.vout[i].target).key,
                 error::wallet_internal_error, "key_image generated ephemeral public key not matched with output_key");
 
+						THROW_WALLET_EXCEPTION_IF(std::find(outs.begin(), outs.end(), i) != outs.end(), error::wallet_internal_error, "Same output cannot be added twice");
             outs.push_back(i);
-            if (money_transfered == 0)
+            if (money_transfered == 0 && !miner_tx)
             {
               money_transfered = tools::decodeRct(tx.rct_signatures, pub_key_field.pub_key, keys.m_view_secret_key, i, mask[i]);
             }
+            THROW_WALLET_EXCEPTION_IF(tx_money_got_in_outs >= std::numeric_limits<uint64_t>::max() - money_transfered, error::wallet_internal_error, "Overflow in received amounts");
             amount[i] = money_transfered;
             tx_money_got_in_outs += money_transfered;
             ++num_vouts_received;
