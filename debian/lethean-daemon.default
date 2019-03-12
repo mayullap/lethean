@@ -1,0 +1,6 @@
+LETHEAND_ARGS="--config-file /etc/lthn/letheand.conf \
+  --detach \
+  --pidfile $PID \
+  --non-interactive \
+  --data-dir /var/lib/lthn --testnet-data-dir /var/lib/lthn/testnet \
+  --standard-json"

@@ -1,22 +1,19 @@
 #!/usr/bin/make -f
 
-#testsuite needs writable $HOME
-FAKEHOME = $(CURDIR)/debian/fakehome
-
-# skip tests requiring network
-export GTEST_FILTER = address_from_url.*:dns_resolver.*
-
 %:
 	dh $@ --parallel --buildsystem=cmake
 
 override_dh_auto_configure:
 	dh_auto_configure -- -DARCH=default
 
-#override_dh_auto_test:
-#	HOME="${FAKEHOME}" dh_auto_test -- ARGS+="--output-on-failure -E core_tests"
-
 override_dh_install:
 	dh_install
+
+override_dh_installinit:
+	dh_installinit -p lethean-daemon
+	dh_installinit -p lethean-wallet-rpc
+	dh_installinit -p lethean-wallet-vpn-rpc
+#	dh_install 
 
 override_dh_missing:
 	dh_missing --fail-missing
