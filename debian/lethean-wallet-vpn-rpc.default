@@ -1,0 +1,2 @@
+LETHEANWALLET=/var/lib/lthn/wallet
+LETHEANWALLETVPNRPC_ARGS="--wallet-file '$LETHEANWALLET' --wallet-dir /var/lib/lthn --log-file /var/log/lthn/wallet.log"

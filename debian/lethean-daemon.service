@@ -6,7 +6,7 @@ After=syslog.target
 [Service]
 EnvironmentFile=/etc/default/lethean-daemon
 Type=simple
-ExecStart=/opt/lthn/bin/letheand $LETHEAND_ARGS
+ExecStart=/usr/bin/letheand $LETHEAND_ARGS
 User=lthn
 Group==lthn
 Restart=always

@@ -12,6 +12,7 @@ if [ "$1" = "configure" ]; then
 	    lthn
     fi
 
+    mkdir -p /var/log/lthn /var/lib/lthn /var/run/lthn
     chown lthn:lthn /var/log/lthn -R
     chown lthn:lthn /var/lib/lthn -R
     chown lthn:lthn /var/run/lthn -R
