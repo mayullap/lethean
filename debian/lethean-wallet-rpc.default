@@ -1,2 +1,3 @@
 LETHEANWALLET=/var/lib/lthn/wallet
-LETHEANWALLETRPC_ARGS="--wallet-file '$LETHEANWALLET' --wallet-dir /var/lib/lthn --log-file /var/log/lthn/wallet.log"
+RPCPORT=14660
+LETHEANWALLETRPC_ARGS="--rpc-bind-port '$RPCPORT' --wallet-file '$LETHEANWALLET' --wallet-dir /var/lib/lthn --log-file /var/log/lthn/wallet.log"

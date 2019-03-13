@@ -1,6 +1,10 @@
+
 LETHEAND_ARGS="--config-file /etc/lthn/letheand.conf \
-  --detach \
-  --pidfile $PID \
+  --pidfile /var/lib/lthn/letheand.pid \
+  --log-file /var/log/lthn/letheand.log \
   --non-interactive \
   --data-dir /var/lib/lthn --testnet-data-dir /var/lib/lthn/testnet \
   --standard-json"
+
+ZSYNC_URL="https://monitor.lethean.io/bc/data.mdb.zsync"
+LETHEAND_LMDB="/var/lib/lthn/lmdb/"

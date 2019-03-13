@@ -6,10 +6,11 @@ After=syslog.target
 [Service]
 EnvironmentFile=/etc/default/lethean-daemon
 Type=simple
-ExecStart=/usr/bin/letheand $LETHEAND_ARGS
+ExecStart=/usr/bin/letheand-fetchbc.sh run /usr/bin/letheand $LETHEAND_ARGS
 User=lthn
-Group==lthn
+Group=lthn
 Restart=always
+PIDFile=/var/run/lthn/letheand.pid
 StandardOutput=syslog
 StandardError=syslog
 
