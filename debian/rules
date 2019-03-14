@@ -9,7 +9,8 @@ override_dh_auto_configure:
 override_dh_auto_test:
 
 override_dh_install:
-	cp debian/letheand-fetchbc.sh debian/tmp/usr/bin/letheand-fetchbc.sh 
+	mkdir -p debian/tmp/usr/lib/lthn
+	cp debian/letheand-fetchbc.sh debian/tmp/usr/lib/lthn/
 	dh_install
 
 override_dh_installinit:

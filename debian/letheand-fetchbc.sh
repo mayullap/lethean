@@ -14,26 +14,29 @@ if [ -z "${LETHEAND_LMDB}" ] || [ -z "${ZSYNC_URL}" ]; then
 fi
 
 download(){
-  mkdir -p ${LETHEAND_LMDB} \
-  && cd ${LETHEAND_LMDB} \
-  && rm -f data.mdb.zsync && \
-  wget "$ZSYNC_URL" && zsync data.mdb.zsync && zsync data.mdb.zsync;
+  if ! fuser -s ${LETHEAND_LMDB}/data.mdb; then
+    mkdir -p ${LETHEAND_LMDB} \
+    && cd ${LETHEAND_LMDB} \
+    && rm -f data.mdb.zsync && \
+    wget "$ZSYNC_URL" && zsync data.mdb.zsync && zsync data.mdb.zsync;
+  else
+    echo "${LETHEAND_LMDB}/data.mdb in use by "$(fuser -v ${LETHEAND_LMDB}/data.mdb) '! Not downloading.'
+  fi
 }
 
 if [ -f ${LETHEAND_LMDB}/data.mdb ] && [ "$1" = "force" ] ; then \
-  echo "Removing blockchain data, downloading new from ${ZSYNC_URL}"
+  echo "Downloading new blockchain data from ${ZSYNC_URL}"
   download
 else
   if ! [ -f ${LETHEAND_LMDB}/data.mdb ]; then
     echo "Downloading blockchain data from ${ZSYNC_URL}"
     download
   else
-    echo "Not touching blockchain data."
+    echo "Not touching blockchain data. use $0 force to redownload."
   fi
 fi
 
 if [ "$1" = "run" ]; then
   shift
-  "$@"
+  exec "$@"
 fi
-

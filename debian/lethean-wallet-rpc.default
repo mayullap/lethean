@@ -1,3 +1,10 @@
 LETHEANWALLET=/var/lib/lthn/wallet
-RPCPORT=14660
-LETHEANWALLETRPC_ARGS="--rpc-bind-port '$RPCPORT' --wallet-file '$LETHEANWALLET' --wallet-dir /var/lib/lthn --log-file /var/log/lthn/wallet.log"
+RPCPORT=13660
+
+# To redirect to global daemon
+#DAEMONHOST=sync.lethean.io
+DAEMONHOST=localhost
+
+RPCLOGIN="user:pass"
+
+WALLETPASS="walletpass"
