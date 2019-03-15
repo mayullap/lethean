@@ -11,13 +11,14 @@ override_dh_auto_test:
 override_dh_install:
 	mkdir -p debian/tmp/usr/lib/lthn
 	cp debian/letheand-fetchbc.sh debian/tmp/usr/lib/lthn/
+	cp obj-$$(uname -m)-linux-gnu/bin/lethean-blockchain-export debian/tmp/usr/bin/
+	cp obj-$$(uname -m)-linux-gnu/bin/lethean-blockchain-import debian/tmp/usr/bin/ 
 	dh_install
 
 override_dh_installinit:
 	dh_installinit -p lethean-daemon
 	dh_installinit -p lethean-wallet-rpc
 	dh_installinit -p lethean-wallet-vpn-rpc
-#	dh_install 
 
 override_dh_missing:
 	dh_missing --fail-missing
