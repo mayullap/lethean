@@ -26,16 +26,15 @@ Build-Depends:
  libunbound-dev,
  libzmq3-dev,
  pkg-config,
- qtchooser,
  rapidjson-dev,
- zsync,
- wget
+ gcc,
+ g++
 Standards-Version: 5
 Homepage: https://lethean.io/
 
 Package: lethean-daemon
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, zsync, wget
 Description: cryptocoin client for Lethean network - daemon and tools
  Full Lethean client is a full-node wallet for the Lethean network.
  .

@@ -4,10 +4,10 @@
 	dh $@ --parallel --buildsystem=cmake
 
 override_dh_auto_configure:
-	dh_auto_configure -- -DARCH=default
+	dh_auto_configure -- -DARCH=default -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DUSE_SHARED_MINIUPNPC=yes -DUNBOUND_INCLUDE_DIR=/usr/include
 
 override_dh_auto_build:
-	make release-static
+	make release
 
 override_dh_auto_test:
 
@@ -27,5 +27,5 @@ override_dh_missing:
 	dh_missing --fail-missing
 
 override_dh_auto_clean:
-	rm -rf ./build/ ./obj-*
+	rm -rf ./build/ ./obj-* CMakeCache.txt CMakeFiles* install_manifest.txt
 	dh_auto_clean
