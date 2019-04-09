@@ -6,13 +6,16 @@
 override_dh_auto_configure:
 	dh_auto_configure -- -DARCH=default
 
+override_dh_auto_build:
+	make release-static
+
 override_dh_auto_test:
 
 override_dh_install:
 	mkdir -p debian/tmp/usr/lib/lthn
 	cp debian/letheand-fetchbc.sh debian/tmp/usr/lib/lthn/
-	cp obj-$$(uname -m)-linux-gnu/bin/lethean-blockchain-export debian/tmp/usr/bin/
-	cp obj-$$(uname -m)-linux-gnu/bin/lethean-blockchain-import debian/tmp/usr/bin/ 
+	cp debian/letheand-fetchbc.sh debian/tmp/usr/lib/lthn/
+	cp build/release/bin/* debian/tmp/usr/bin/
 	dh_install
 
 override_dh_installinit:
@@ -24,5 +27,5 @@ override_dh_missing:
 	dh_missing --fail-missing
 
 override_dh_auto_clean:
-	rm -rf "$(FAKEHOME)"
+	rm -rf ./build/ ./obj-*
 	dh_auto_clean
