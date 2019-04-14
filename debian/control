@@ -19,14 +19,12 @@ Build-Depends:
  libdb-dev,
  libgtest-dev,
  libminiupnpc-dev,
- libhidapi-dev [!kfreebsd-any !hurd-any],
  libreadline-dev,
  libsodium-dev,
  libssl-dev,
  libunbound-dev,
- libzmq3-dev,
- pkg-config,
  rapidjson-dev,
+ pkg-config,
  gcc,
  g++
 Standards-Version: 5
