@@ -1425,14 +1425,6 @@ bool Blockchain::handle_alternative_block(const block& b, const crypto::hash& id
 		return false;
 	}
 
-    /*get_block_longhash(bei.bl, proof_of_work, bei.height);
-    if(!check_hash(proof_of_work, current_diff))
-    {
-      MERROR_VER("Block with id: " << id << std::endl << " for alternative chain, does not have enough proof of work: " << proof_of_work << std::endl << " expected difficulty: " << current_diff);
-      bvc.m_verifivation_failed = true;
-      return false;
-    }*/
-
     if(!prevalidate_miner_transaction(b, bei.height))
     {
       MERROR_VER("Block with id: " << epee::string_tools::pod_to_hex(id) << " (as alternative) has incorrect miner transaction.");
