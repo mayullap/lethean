@@ -113,6 +113,11 @@ namespace cryptonote {
   }
 
   bool check_hash(const crypto::hash &hash, difficulty_type difficulty) {
+   // fail if the hash is empty
+   crypto::hash null_hash = AUTO_VAL_INIT(null_hash);
+   if(hash == null_hash) {
+     return false;
+   }
     uint64_t low, high, top, cur;
     // First check the highest word, this will most likely fail for a random hash.
     mul(swap64le(((const uint64_t *) &hash)[3]), difficulty, top, high);
