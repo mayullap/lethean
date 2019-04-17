@@ -3284,31 +3284,34 @@ leave:
   else
 #endif
   {
+    // hardcoded acceptance of two blocks that did not comply with normal POW validation measures but made it into the chain due to
+    // edge cases and bad handling of get_block_longhash. issue is resolved going forward
+    if (epee::string_tools::pod_to_hex(id) != "62aebe7a29a3e88b547e417ca162c436a6aa6014bafedcb846ef762e8b98dff0" &&
+        epee::string_tools::pod_to_hex(id) != "a7801671ed1fd9872bbf330fd0faa2b5b6f5e678308f4ac8addbc9e03edffecb") {
     auto it = m_blocks_longhash_table.find(id);
     if (it != m_blocks_longhash_table.end())
     {
       precomputed = true;
       proof_of_work = it->second;
+        // validate proof_of_work versus difficulty target
+        if(!check_hash(proof_of_work, current_diffic))
+        {
+          MERROR_VER("Block height " << m_db->height() << " with id: " << id << std::endl << " ts: " << bl.timestamp << " nonce: " << bl.nonce << " does not have enough proof of work [precomputed]: " << proof_of_work << std::endl << "unexpected difficulty: " << current_diffic);
+          bvc.m_verifivation_failed = true;
+          goto leave;
+        }
     }
 	else
 	{
+        // compute pow and validate proof_of_work versus difficulty target
 		if (!check_proof_of_work(bl, current_diffic, proof_of_work, m_db->height()))
 		{
-			MERROR_VER("Block with id: " << id << std::endl << "does not have enough proof of work: " << proof_of_work << std::endl << "unexpected difficulty: " << current_diffic);
-			MDEBUG("Block info - ts " << bl.timestamp << " nonce " << bl.nonce);
+          MERROR_VER("Block height " << m_db->height() << " with id: " << id << std::endl << " ts: " << bl.timestamp << " nonce: " << bl.nonce << "does not have enough proof of work: " << proof_of_work << std::endl << "unexpected difficulty: " << current_diffic);
 			bvc.m_verifivation_failed = true;
 			goto leave;
 		}
-		//proof_of_work = get_block_longhash(bl, m_db->height());
 	}
-
-    // validate proof_of_work versus difficulty target
-    /*if(!check_hash(proof_of_work, current_diffic))
-    {
-      MERROR_VER("Block with id: " << id << std::endl << "does not have enough proof of work: " << proof_of_work << std::endl << "unexpected difficulty: " << current_diffic);
-      bvc.m_verifivation_failed = true;
-      goto leave;
-    }*/
+    }
   }
 
   // If we're at a checkpoint, ensure that our hardcoded checkpoint hash
@@ -3695,10 +3698,10 @@ void Blockchain::block_longhash_worker(uint64_t height, const epee::span<const b
     if (m_cancel)
        break;
     crypto::hash id = get_block_hash(block);
-	crypto::hash pow;
+	crypto::hash pow = null_hash;
 	if (get_hard_fork_version(height + 1) == BLOCK_MAJOR_VERSION_1 ||
 		get_hard_fork_version(height + 1) >= BLOCK_MAJOR_VERSION_4) {
-		get_block_longhash(block, height++);
+   pow = get_block_longhash(block, height++);
 		map.emplace(id, pow);
 	}
 	else
