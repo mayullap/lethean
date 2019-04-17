@@ -3685,7 +3685,7 @@ void Blockchain::set_enforce_dns_checkpoints(bool enforce_checkpoints)
 }
 
 //------------------------------------------------------------------
-void Blockchain::block_longhash_worker(uint64_t height, const std::vector<block> &blocks, std::unordered_map<crypto::hash, crypto::hash> &map) const
+void Blockchain::block_longhash_worker(uint64_t height, const epee::span<const block> &blocks, std::unordered_map<crypto::hash, crypto::hash> &map) const
 {
   TIME_MEASURE_START(t);
   slow_hash_allocate_state();
@@ -3847,7 +3847,7 @@ bool Blockchain::prepare_handle_incoming_blocks(const std::list<block_complete_e
     uint64_t height = m_db->height();
     std::vector<boost::thread *> thread_list;
     int batches = blocks_entry.size() / threads;
-    int extra = blocks_entry.size() % threads;
+    unsigned int extra = blocks_entry.size() % threads;
     MDEBUG("block_batches: " << batches);
     std::vector<std::unordered_map<crypto::hash, crypto::hash>> maps(threads);
     std::vector < std::vector < block >> blocks(threads);
@@ -3888,7 +3888,7 @@ bool Blockchain::prepare_handle_incoming_blocks(const std::list<block_complete_e
       }
     }
 
-    for (int i = 0; i < extra && !blocks_exist; i++)
+    for (unsigned i = 0; i < extra && !blocks_exist; i++)
     {
       block block;
 
@@ -3914,8 +3914,9 @@ bool Blockchain::prepare_handle_incoming_blocks(const std::list<block_complete_e
       uint64_t thread_height = height;
       for (uint64_t i = 0; i < threads; i++)
       {
-        thread_list.push_back(new boost::thread(attrs, boost::bind(&Blockchain::block_longhash_worker, this, thread_height, std::cref(blocks[i]), std::ref(maps[i]))));
-        thread_height += blocks[i].size();
+        unsigned nblocks = batches;
+        thread_list.push_back(new boost::thread(attrs, boost::bind(&Blockchain::block_longhash_worker, this, thread_height, epee::span<const block>(&blocks[i][0], nblocks), std::ref(maps[i]))));
+        thread_height += nblocks;
       }
 
       for (size_t j = 0; j < thread_list.size(); j++)
