@@ -1,0 +1,20 @@
+[Unit]
+Description=LTHN wallet VPN RPC daemon
+After=syslog.target
+
+[Service]
+EnvironmentFile=/etc/default/lethean-wallet-vpn-rpc
+Type=simple
+WorkingDirectory=/var/lib/lthn
+ExecStartPre=/bin/rm -f /var/lib/lthn/lethean-wallet-vpn-rpc.*.login
+ExecStart=/usr/bin/lethean-wallet-vpn-rpc --vpn-rpc-bind-port ${RPCPORT} --password ${WALLETPASS} --rpc-login ${RPCLOGIN} --daemon-host ${DAEMONHOST} --wallet-file ${LETHEANWALLET} --log-file /var/log/lthn/wallet-vpn-rpc.log
+
+User=lthn
+Group=lthn
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
+

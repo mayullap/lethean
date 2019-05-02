@@ -108,3 +108,9 @@ local.properties
 .idea/
 
 /testnet
+
+## Deb ##
+debian/.debhelper
+debian/*.log
+debian/*stamp
+debian/files
