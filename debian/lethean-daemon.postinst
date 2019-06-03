@@ -19,6 +19,7 @@ if [ "$1" = "configure" ]; then
     chmod 770 /var/lib/lthn
     chown lthn:lthn /var/run/lthn -R
     chmod 770 /var/run/lthn
+    touch /var/run/lthn/.keep
 fi
 
 # dh_installdeb will replace this with shell code automatically
