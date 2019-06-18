@@ -16,6 +16,9 @@ override_dh_install:
 	cp debian/letheand-fetchbc.sh debian/tmp/usr/lib/lthn/
 	cp debian/letheand-fetchbc.sh debian/tmp/usr/lib/lthn/
 	cp build/release/bin/* debian/tmp/usr/bin/
+	mv debian/tmp/usr/bin/letheand debian/tmp/usr/bin/letheand.bin
+	cp debian/letheand.sh debian/tmp/usr/bin/letheand
+	chmod +x debian/tmp/usr/bin/letheand
 	dh_install
 
 override_dh_installinit:

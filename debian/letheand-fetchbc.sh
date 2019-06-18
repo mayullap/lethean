@@ -27,6 +27,7 @@ download(){
 
 if [ -f ${LETHEAND_LMDB}/data.mdb ] && [ "$1" = "force" ] ; then \
   echo "Downloading new blockchain data from ${ZSYNC_URL}"
+  shift
   download
 else
   if ! [ -f ${LETHEAND_LMDB}/data.mdb ]; then
