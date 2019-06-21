@@ -6,6 +6,7 @@ After=syslog.target
 EnvironmentFile=/etc/default/lethean-wallet-rpc
 Type=simple
 WorkingDirectory=/var/lib/lthn
+ExecStartPre=/bin/sh -c "/bin/rm -f /var/lib/lthn/lethean-wallet-rpc.*.login"
 ExecStart=/usr/bin/lethean-wallet-rpc --rpc-bind-port ${RPCPORT} --password ${WALLETPASS} --rpc-login ${RPCLOGIN} --daemon-host ${DAEMONHOST} --wallet-file ${LETHEANWALLET} --log-file /var/log/lthn/wallet-rpc.log
 User=lthn
 Group=lthn
