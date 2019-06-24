@@ -10,7 +10,8 @@ ExecStart=/usr/bin/letheand start --non-interactive --standard-json --config-fil
 User=root
 Group=lthn
 Restart=always
-PIDFile=/var/run/lthn/letheand.pid
+RestartSec=10
+PIDFile=${LETHEAND_PID}
 StandardOutput=syslog
 StandardError=syslog
 
