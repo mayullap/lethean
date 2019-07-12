@@ -1,9 +1,12 @@
-lethean (3.1.0-1.1) UNRELEASED; urgency=medium
+lethean (3.1.0-4) UNRELEASED; urgency=medium
 
   * Non-maintainer upload.
   * Repaired fetchbc script
+  * Repaired status and starting
+  * Repaired #112
+  * Nes eubrelease
 
- -- Lukas Macura <lm@lindev-jso-cz.jso.local>  Sun, 14 Apr 2019 11:33:14 +0200
+ -- Lukas Macura <lm@lindev-jso-cz.jso.local>  Mon, 24 Jun 2019 17:57:20 +0200
 
 lethean (3.1.0-1) unstable; urgency=medium
 

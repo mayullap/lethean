@@ -1,4 +1,5 @@
 usr/bin/letheand usr/bin/
+usr/bin/letheand.bin usr/bin/
 usr/lib/lthn/letheand-fetchbc.sh usr/lib/lthn/
 usr/bin/lethean-blockchain-import usr/bin
 usr/bin/lethean-blockchain-export usr/bin
