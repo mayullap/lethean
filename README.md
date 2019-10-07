@@ -68,6 +68,15 @@ Then run:
 apt-get update
 apt-get install lethean-daemon
 ```
+This won't install any wallet tool. You can add the wallet gui and/or cli by running either or both of the following commands:
+```
+apt-get install lethean-gui
+apt-get install lethean-wallet-cli
+```
+If you are running services on the lethean network, like in the case of an exchange, you may need the wallet rpc client as well:
+```
+apt-get install lethean-wallet-rpc
+```
 ## Compiling Lethean from Source
 
 ### Dependencies
