@@ -77,6 +77,7 @@ If you are running services on the lethean network, like in the case of an excha
 ```
 apt-get install lethean-wallet-rpc
 ```
+The lethean-wallet-vpn-rpc package is only needed if you want to run an exit node (i.e. provide vpn services through the lethean network and earn coins). In this case, it's easier to start by installing the lethean-vpn package instead, and follow the related guide on https://github.com/ronnylov/lethean-vpn/wiki/Full-Lethean-exit-node-install-guide
 ## Compiling Lethean from Source
 
 ### Dependencies
