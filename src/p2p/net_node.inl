@@ -409,19 +409,11 @@ namespace nodetool
     std::set<std::string> full_addrs;
     if (testnet) //CHANGE ME
     {
-		full_addrs.insert("192.124.18.154:38772");
+		full_addrs.insert("127.0.0.1:50173"); //testnet port 50173
     }
     else
     {
-      full_addrs.insert("192.124.18.154:48772");
-      full_addrs.insert("45.32.171.89:48772");
-	  full_addrs.insert("45.63.69.34:48772");
-	  full_addrs.insert("62.48.164.61:48772");
-	  full_addrs.insert("35.205.108.96:48772");
-	  full_addrs.insert("195.154.133.155:48772");
-	  full_addrs.insert("69.162.83.203:48772");
-	  full_addrs.insert("111.231.72.116:48772");
-    full_addrs.insert("89.221.223.126:48772");
+      full_addrs.insert("127.0.0.1:50153"); //mainnet port 50153
     }
     return full_addrs;
   }
@@ -810,7 +802,7 @@ namespace nodetool
     }
     else
     {
-      try_get_support_flags(context_, [](p2p_connection_context& flags_context, const uint32_t& support_flags) 
+      try_get_support_flags(context_, [](p2p_connection_context& flags_context, const uint32_t& support_flags)
       {
         flags_context.support_flags = support_flags;
       });
@@ -1618,25 +1610,25 @@ namespace nodetool
     COMMAND_REQUEST_SUPPORT_FLAGS::request support_flags_request;
     bool r = epee::net_utils::async_invoke_remote_command2<typename COMMAND_REQUEST_SUPPORT_FLAGS::response>
     (
-      context.m_connection_id, 
-      COMMAND_REQUEST_SUPPORT_FLAGS::ID, 
-      support_flags_request, 
+      context.m_connection_id,
+      COMMAND_REQUEST_SUPPORT_FLAGS::ID,
+      support_flags_request,
       m_net_server.get_config_object(),
       [=](int code, const typename COMMAND_REQUEST_SUPPORT_FLAGS::response& rsp, p2p_connection_context& context_)
-      {  
+      {
         if(code < 0)
         {
           LOG_DEBUG_CC(context_, "COMMAND_REQUEST_SUPPORT_FLAGS invoke failed. (" << code <<  ", " << epee::levin::get_err_descr(code) << ")");
           return;
         }
-        
+
         f(context_, rsp.support_flags);
       },
       P2P_DEFAULT_HANDSHAKE_INVOKE_TIMEOUT
     );
 
     return r;
-  }  
+  }
   //-----------------------------------------------------------------------------------
   template<class t_payload_net_handler>
   int node_server<t_payload_net_handler>::handle_timed_sync(int command, typename COMMAND_TIMED_SYNC::request& arg, typename COMMAND_TIMED_SYNC::response& rsp, p2p_connection_context& context)
@@ -1704,7 +1696,7 @@ namespace nodetool
     if(arg.node_data.peer_id != m_config.m_peer_id && arg.node_data.my_port)
     {
       peerid_type peer_id_l = arg.node_data.peer_id;
-      uint32_t port_l = arg.node_data.my_port;      
+      uint32_t port_l = arg.node_data.my_port;
       //try ping to be sure that we can add this peer to peer_list
       try_ping(arg.node_data, context, [peer_id_l, port_l, context, this]()
       {
@@ -1722,10 +1714,10 @@ namespace nodetool
         LOG_DEBUG_CC(context, "PING SUCCESS " << context.m_remote_address.host_str() << ":" << port_l);
       });
     }
-    
+
 	//CHANGEME support flags disabled until more XMR-based clients are present on the network.
     /*
-	try_get_support_flags(context, [](p2p_connection_context& flags_context, const uint32_t& support_flags) 
+	try_get_support_flags(context, [](p2p_connection_context& flags_context, const uint32_t& support_flags)
     {
       flags_context.support_flags = support_flags;
     });
